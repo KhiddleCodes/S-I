@@ -1,0 +1,2477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ohafia S&I Student Hub</title>
+
+<style>
+:root{
+  --navy:#10243e;
+  --blue:#1f6feb;
+  --teal:#0f9d8a;
+  --gold:#f4b942;
+  --bg:#f7f8fc;
+  --ink:#172033;
+  --muted:#718096;
+  --line:#e5eaf2;
+  --red:#d95757;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,Arial,sans-serif;
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.hidden{display:none!important}
+.logo{object-fit:contain;background:#fff;border-radius:14px}
+
+.login{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+}
+
+.login-photo{
+  background:
+    linear-gradient(#10243e99,#10243ecc),
+    url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1400&q=85')
+    center/cover;
+  color:#fff;
+  padding:55px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.login-photo h1{
+  font-size:44px;
+  line-height:1.05;
+  max-width:560px;
+  margin:25px 0 14px;
+}
+
+.login-photo p{
+  max-width:480px;
+  color:#d6e7f1;
+  line-height:1.7;
+}
+
+.eyebrow{
+  color:#f8d36f;
+  letter-spacing:1.4px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.login-box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+}
+
+.login-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:32px;
+  width:min(440px,100%);
+  box-shadow:0 20px 60px #10243e14;
+  text-align:center;
+}
+
+.login-card .logo{
+  width:90px;
+  height:90px;
+}
+
+.login-card h2{
+  margin:17px 0 6px;
+  font-size:27px;
+}
+
+.login-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin-bottom:15px;
+  text-align:left;
+}
+
+.field label{
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+input,select{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:11px 12px;
+  background:#fff;
+  outline:0;
+}
+
+input:focus,select:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px #1f6feb19;
+}
+
+.password{position:relative}
+
+.password input{
+  width:100%;
+  padding-right:65px;
+}
+
+.show-pass{
+  position:absolute;
+  right:7px;
+  top:7px;
+  padding:6px 8px;
+  background:#f1f4f8;
+  border-radius:7px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.remember{
+  display:flex;
+  gap:8px;
+  color:var(--muted);
+  font-size:12px;
+  margin:8px 0 18px;
+  text-align:left;
+}
+
+.login-submit,.btn{
+  border-radius:11px;
+  padding:11px 15px;
+  font-weight:700;
+}
+
+.login-submit{
+  width:100%;
+  background:var(--blue);
+  color:#fff;
+  padding:13px;
+}
+
+.link{
+  color:var(--blue);
+  font-size:12px;
+  margin-top:18px;
+  cursor:pointer;
+}
+
+.error{
+  display:none;
+  background:#fff0f0;
+  color:#b33f3f;
+  border-radius:9px;
+  padding:10px;
+  font-size:12px;
+  text-align:left;
+  margin-bottom:14px;
+}
+
+.error.show{display:block}
+
+.app{
+  min-height:100vh;
+  display:flex;
+}
+
+.sidebar{
+  width:250px;
+  background:var(--navy);
+  color:#fff;
+  padding:24px 15px;
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:4px 10px 25px;
+}
+
+.brand .logo{
+  width:44px;
+  height:44px;
+}
+
+.brand h1{
+  font-size:16px;
+  line-height:1.1;
+  margin:0;
+}
+
+.brand small{
+  color:#a9b8cc;
+  font-size:10px;
+}
+
+.nav-label{
+  font-size:10px;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  color:#7890ad;
+  padding:0 12px;
+  margin:15px 0 7px;
+}
+
+.nav-btn{
+  width:100%;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:13px 14px;
+  border-radius:12px;
+  color:#b9c8db;
+  background:transparent;
+  text-align:left;
+  margin:4px 0;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:#ffffff1f;
+  color:#fff;
+}
+
+.nav-icon{
+  font-size:18px;
+  width:22px;
+  text-align:center;
+}
+
+.account{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:fixed;
+  left:15px;
+  bottom:16px;
+  width:220px;
+  z-index:30;
+  background:var(--navy);
+  margin:0;
+  padding:14px;
+  border:1px solid #ffffff33;
+  border-radius:13px;
+  color:#d5e1ed;
+  font-size:11px;
+  box-shadow:0 8px 24px #0003;
+}
+
+.account-label{
+  display:block;
+  color:#9db2ca;
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+.account strong{
+  display:block;
+  color:#fff;
+  font-size:13px;
+  margin-bottom:3px;
+}
+
+.logout{
+  width:100%;
+  display:block;
+  margin-top:10px;
+  border:0;
+  background:#ffffff18;
+  color:#ffd0d0;
+  padding:9px;
+  border-radius:8px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.logout:hover{background:#ffffff30}
+
+.main{
+  margin-left:250px;
+  width:calc(100% - 250px);
+  padding:26px 34px 45px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:26px;
+}
+
+.title h2{
+  margin:0;
+  font-size:28px;
+}
+
+.title p{
+  margin:5px 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.date,.role{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:10px 13px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.role{
+  background:#e8f1ff;
+  color:var(--blue);
+  font-weight:800;
+  border:0;
+}
+
+.btn-primary{
+  background:var(--blue);
+  color:#fff;
+}
+
+.btn-secondary{
+  background:#fff;
+  color:var(--navy);
+  border:1px solid var(--line);
+}
+
+.btn-danger{
+  background:#fff0f0;
+  color:var(--red);
+}
+
+.hero{
+  background:
+    linear-gradient(#10243e55,#10243ecc),
+    url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=85')
+    center/cover;
+  border-radius:22px;
+  color:#fff;
+  padding:34px;
+  min-height:220px;
+  display:flex;
+  align-items:center;
+}
+
+.hero h3{
+  font-size:29px;
+  margin:12px 0 8px;
+}
+
+.hero p{
+  color:#d7e7f3;
+  line-height:1.6;
+  font-size:13px;
+  max-width:600px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin:20px 0;
+}
+
+.panel,.stat{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:18px;
+  box-shadow:0 6px 20px #10243e09;
+}
+
+.stat-top,.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stat-label,.panel-head span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-value{
+  font-size:27px;
+  font-weight:800;
+  margin-top:12px;
+}
+
+.stat-note{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.stat-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+}
+
+.blue{background:#e8f1ff;color:var(--blue)}
+.green{background:#e3f8f3;color:var(--teal)}
+.gold{background:#fff5d9;color:#bd8300}
+.red{background:#fff0f0;color:var(--red)}
+
+.grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:20px;
+}
+
+.section{display:none}
+.section.active{display:block}
+
+.panel-head{margin-bottom:17px}
+
+.panel-head h3{
+  font-size:16px;
+  margin:0;
+}
+
+.rows{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:10px;
+  border:1px solid #edf0f5;
+  border-radius:12px;
+}
+
+.avatar{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:#e9f1ff;
+  color:var(--blue);
+  font-weight:800;
+  font-size:12px;
+  flex:none;
+}
+
+.row-info{flex:1}
+
+.row-info strong{
+  display:block;
+  font-size:13px;
+}
+
+.row-info small{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.chart{
+  height:150px;
+  display:flex;
+  align-items:end;
+  gap:12px;
+  padding:12px 4px 0;
+}
+
+.bar-wrap{
+  flex:1;
+  height:100%;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  justify-content:end;
+  gap:6px;
+}
+
+.bar{
+  width:100%;
+  max-width:28px;
+  border-radius:7px 7px 3px 3px;
+  background:linear-gradient(#46b8aa,var(--teal));
+  min-height:12px;
+}
+
+.bar-wrap small{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.toolbar,.att-toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.search{
+  flex:1;
+  min-width:210px;
+}
+
+.table-wrap{overflow:auto}
+
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:850px;
+}
+
+th{
+  text-align:left;
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  padding:12px;
+  border-bottom:1px solid var(--line);
+}
+
+td{
+  padding:13px 12px;
+  border-bottom:1px solid #f0f2f6;
+  font-size:13px;
+}
+
+.student{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.student small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.empty{
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.att-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.att-item{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  align-items:center;
+  gap:10px;
+  padding:14px;
+  border-bottom:1px solid #eef1f5;
+}
+
+.att-item:last-child{border:0}
+
+.att-student{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.att-options{
+  display:flex;
+  gap:6px;
+}
+
+.att-options button{
+  font-size:11px;
+  border:1px solid var(--line);
+  padding:7px 9px;
+  border-radius:8px;
+  background:#fff;
+  color:var(--muted);
+}
+
+.status{
+  font-size:10px;
+  font-weight:800;
+  border-radius:30px;
+  padding:6px 9px;
+}
+
+.present{
+  background:#e1f7ef;
+  color:#087e68;
+}
+
+.late{
+  background:#fff4d7;
+  color:#a16d00;
+}
+
+.absent{
+  background:#fff0f0;
+  color:#ba4141;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.gallery-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.gallery-img{height:180px}
+
+.gallery-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.gallery-copy{padding:14px}
+
+.gallery-copy h4{
+  margin:0;
+  font-size:14px;
+}
+
+.gallery-copy p{
+  margin:5px 0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.delete-image{
+  margin-top:10px;
+  padding:7px 10px;
+  border-radius:8px;
+  background:#fff0f0;
+  color:var(--red);
+  font-size:11px;
+  font-weight:700;
+}
+
+.upload{
+  border:2px dashed #cbd9ea;
+  border-radius:16px;
+  min-height:270px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:20px;
+  color:var(--muted);
+}
+
+.spotlight{
+  background:linear-gradient(135deg,#10243e,#1d4774 60%,#247c83);
+  color:#fff;
+  border-radius:22px;
+  padding:32px;
+  min-height:430px;
+}
+
+.spot-head{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:start;
+}
+
+.spot-head h3{
+  font-size:26px;
+  margin:10px 0 6px;
+}
+
+.spot-head p{
+  color:#d7e7f3;
+  font-size:13px;
+}
+
+.slide{
+  background:#ffffff16;
+  border:1px solid #ffffff24;
+  border-radius:18px;
+  padding:28px;
+  margin-top:28px;
+  min-height:230px;
+}
+
+.slide-type{
+  display:inline-block;
+  background:var(--gold);
+  color:var(--navy);
+  border-radius:20px;
+  padding:7px 11px;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.slide h2{
+  font-size:27px;
+  margin:18px 0 12px;
+}
+
+.slide-text{
+  font-size:17px;
+  line-height:1.7;
+  color:#f0f6fb;
+  max-width:850px;
+}
+
+.slide-author{
+  color:#f8d36f;
+  font-size:12px;
+  font-weight:800;
+  margin-top:18px;
+}
+
+.slide-source{
+  color:#cce5ff;
+  font-size:11px;
+  text-decoration:underline;
+  display:inline-block;
+  margin-top:10px;
+}
+
+.slide-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  margin-top:22px;
+}
+
+.arrow{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  color:var(--navy);
+  background:#fff;
+  font-weight:800;
+}
+
+.dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  background:#ffffff55;
+  border-radius:50%;
+  margin:0 4px;
+}
+
+.dot.active{
+  background:var(--gold);
+  transform:scale(1.3);
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0a193d8f;
+  z-index:20;
+  place-items:center;
+  padding:20px;
+}
+
+.modal.show{display:grid}
+
+.modal-box{
+  background:#fff;
+  border-radius:18px;
+  width:min(560px,100%);
+  padding:24px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h3{margin:0}
+
+.close{
+  background:#f0f3f7;
+  border-radius:50%;
+  width:32px;
+  height:32px;
+  font-size:19px;
+  color:var(--muted);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.full{grid-column:1/-1}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:9px;
+  margin-top:20px;
+}
+
+.site-footer{
+  margin-top:32px;
+  padding:24px 0 8px;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:24px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.site-footer strong{
+  display:block;
+  color:var(--ink);
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.site-footer a{
+  display:block;
+  color:var(--blue);
+  text-decoration:none;
+  margin:4px 0;
+}
+
+.site-footer a:hover{text-decoration:underline}
+
+.site-footer small{
+  display:block;
+  margin-top:12px;
+  color:#8a96a8;
+}
+
+.toast{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  background:var(--navy);
+  color:#fff;
+  border-radius:12px;
+  padding:13px 16px;
+  font-size:12px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.25s;
+  z-index:30;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:1000px){
+  .sidebar{width:76px}
+
+  .brand h1,
+  .brand small,
+  .nav-label,
+  .nav-btn span{
+    display:none;
+  }
+
+  .brand{justify-content:center}
+  .nav-btn{justify-content:center}
+
+  .account{
+    left:8px;
+    bottom:8px;
+    width:210px;
+  }
+
+  .main{
+    margin-left:76px;
+    width:calc(100% - 76px);
+  }
+
+  .grid{grid-template-columns:1fr}
+}
+
+@media(max-width:700px){
+  .login{grid-template-columns:1fr}
+  .login-photo{display:none}
+  .main{padding:18px 14px}
+  .title h2{font-size:22px}
+  .date,.role{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery-card:last-child{grid-column:1/-1}
+  .form-grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .att-item{grid-template-columns:1fr}
+  .spot-head{display:block}
+  .site-footer{grid-template-columns:1fr;gap:16px}
+  .account{width:190px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="login" id="loginScreen">
+  <div class="login-photo">
+    <div class="eyebrow">Ohafia Nigeria Stake • S&I</div>
+    <h1>Welcome to the S&I Student Hub.</h1>
+    <p>
+      Manage student registration, attendance, learning moments, and Seminary
+      and Institute engagement across the Ohafia Nigeria Stake.
+    </p>
+  </div>
+
+  <div class="login-box">
+    <div class="login-card">
+      <div style="font-size:58px;color:#1f6feb;font-weight:800">S&I</div>
+      <h2>Sign in</h2>
+      <p>Sign in with your administrator or teacher account.</p>
+
+      <div class="error" id="loginError">
+        Incorrect email or password.
+      </div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label>EMAIL ADDRESS</label>
+          <input id="loginEmail" type="email" required placeholder="Enter your email">
+        </div>
+
+        <div class="field">
+          <label>PASSWORD</label>
+          <div class="password">
+            <input id="loginPassword" type="password" required placeholder="Enter your password">
+            <button type="button" class="show-pass" id="showPass">Show</button>
+          </div>
+        </div>
+
+        <label class="remember">
+          <input type="checkbox" id="remember" checked>
+          Keep me signed in on this device
+        </label>
+
+        <button class="login-submit">Sign in to dashboard</button>
+      </form>
+
+      <div class="link" id="openSignup">
+        New teacher? Create a teacher account
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="app hidden" id="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div style="font-size:30px;color:#fff;font-weight:800">S&I</div>
+      <div>
+        <h1>Ohafia S&I<br>Student Hub</h1>
+        <small>Attendance & learning</small>
+      </div>
+    </div>
+
+    <div class="nav-label">Workspace</div>
+
+    <button class="nav-btn active" data-section="overview">
+      <span class="nav-icon">⌂</span>
+      <span>Overview</span>
+    </button>
+
+    <button class="nav-btn" data-section="students">
+      <span class="nav-icon">♙</span>
+      <span>Students</span>
+    </button>
+
+    <button class="nav-btn" data-section="attendance">
+      <span class="nav-icon">✓</span>
+      <span>Attendance</span>
+    </button>
+
+    <button class="nav-btn" data-section="gallery">
+      <span class="nav-icon">▧</span>
+      <span>Learning moments</span>
+    </button>
+
+    <button class="nav-btn" data-section="spotlight">
+      <span class="nav-icon">✦</span>
+      <span>Trivia & quotes</span>
+    </button>
+
+    <div class="nav-label">Quick actions</div>
+
+    <button class="nav-btn" id="sideRegister">
+      <span class="nav-icon">＋</span>
+      <span>Register student</span>
+    </button>
+
+    <button class="nav-btn" id="exportBtn">
+      <span class="nav-icon">⇩</span>
+      <span>Export records</span>
+    </button>
+
+    <div class="account">
+      <span class="account-label">Signed in as</span>
+      <strong id="userName">Administrator</strong>
+      <span id="userRole">Dashboard access</span>
+      <button type="button" class="logout" id="logout">⇥ Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div class="title">
+        <h2 id="pageTitle">Good morning</h2>
+        <p id="pageSubtitle">
+          Welcome to your student attendance workspace.
+        </p>
+      </div>
+
+      <div class="actions">
+        <span class="role" id="rolePill">ADMIN</span>
+        <span class="date" id="today"></span>
+        <button class="btn btn-primary" id="register">
+          ＋ Register student
+        </button>
+      </div>
+    </div>
+
+    <section class="section active" id="overview">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Ohafia Nigeria Stake • S&I</div>
+          <h3>Help every student feel seen, known, and supported.</h3>
+          <p>
+            Keep simple attendance records, follow up with students, and
+            celebrate the learning taking place in your classes.
+          </p>
+        </div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Today’s attendance</h3>
+            <span id="attendanceDateText"></span>
+          </div>
+          <div class="rows" id="recent"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Weekly participation</h3>
+            <span>Last 7 days</span>
+          </div>
+          <div class="chart" id="chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="students">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Registered students</h3>
+            <span id="studentCount"></span>
+          </div>
+          <button class="btn btn-primary" id="register2">＋ Add student</button>
+        </div>
+
+        <div class="toolbar">
+          <input
+            class="search"
+            id="search"
+            placeholder="Search by name, ward, or class..."
+          >
+
+          <select class="filter" id="classFilter">
+            <option value="">All classes</option>
+          </select>
+
+          <select class="filter" id="wardFilter">
+            <option value="">All wards and branches</option>
+          </select>
+
+          <button class="btn btn-secondary" id="clear">
+            Clear all
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Class</th>
+                <th>Ward / branch</th>
+                <th>Phone</th>
+                <th>Registered</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="studentsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="attendance">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Mark attendance</h3>
+            <span>Record participation for each class day.</span>
+          </div>
+
+          <button class="btn btn-primary" id="saveAttendance">
+            Save attendance
+          </button>
+        </div>
+
+        <div class="att-toolbar">
+          <label>Class date</label>
+          <input type="date" id="attDate">
+
+          <select class="filter" id="attClass">
+            <option value="">All classes</option>
+          </select>
+
+          <select class="filter" id="attWard">
+            <option value="">All wards and branches</option>
+          </select>
+        </div>
+
+        <div class="att-card" id="attList"></div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Learning moments</h3>
+            <span>Real classroom photographs and uploaded moments.</span>
+          </div>
+
+          <label class="btn btn-primary" for="imageUpload">
+            ＋ Add image
+          </label>
+
+          <input id="imageUpload" type="file" accept="image/*" hidden>
+        </div>
+
+        <div class="gallery" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="spotlight">
+      <div class="spotlight">
+        <div class="spot-head">
+          <div>
+            <div class="eyebrow">S&I SPOTLIGHT</div>
+            <h3>Trivia, history, and prophetic counsel</h3>
+            <p>Learn something new about Seminary and Institute.</p>
+          </div>
+
+          <button class="btn btn-secondary" id="play">
+            Pause slideshow
+          </button>
+        </div>
+
+        <div class="slide">
+          <span class="slide-type" id="slideType"></span>
+          <h2 id="slideTitle"></h2>
+          <div class="slide-text" id="slideText"></div>
+          <div class="slide-author" id="slideAuthor"></div>
+          <a class="slide-source" id="slideSource" target="_blank">
+            View official source
+          </a>
+        </div>
+
+        <div class="slide-controls">
+          <button class="arrow" id="prev">←</button>
+          <div id="dots"></div>
+          <button class="arrow" id="next">→</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Ohafia Nigeria Stake S&I</strong>
+        <span>
+          Student attendance, learning moments, and Seminary & Institute
+          support for the Ohafia Nigeria Stake.
+        </span>
+        <small>© 2026 Ohafia Nigeria Stake S&I Student Hub</small>
+      </div>
+
+      <div>
+        <strong>Contact us</strong>
+        <span>
+          For help, please contact your local S&I teacher, branch president,
+          bishop, or stake S&I coordinator.
+        </span>
+      </div>
+
+      <div>
+        <strong>Quick links</strong>
+        <a href="#overview">Overview</a>
+        <a href="#attendance">Attendance</a>
+        <a href="#spotlight">Trivia & quotes</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<div class="modal" id="signupModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Create teacher account</h3>
+      <button class="close" data-close="signupModal">×</button>
+    </div>
+
+    <form id="signupForm">
+      <div class="form-grid">
+
+        <div class="field full">
+          <label>FULL NAME</label>
+          <input name="name" required>
+        </div>
+
+        <div class="field">
+          <label>EMAIL</label>
+          <input name="email" type="email" required>
+        </div>
+
+        <div class="field">
+          <label>WARD / BRANCH</label>
+          <select name="ward" required></select>
+        </div>
+
+        <div class="field">
+          <label>PROGRAM</label>
+          <select name="program" required>
+            <option value="">Select program</option>
+            <option>Seminary</option>
+            <option>Institute</option>
+            <option>Seminary and Institute</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>PHONE</label>
+          <input name="phone">
+        </div>
+
+        <div class="field">
+          <label>PASSWORD</label>
+          <input name="password" type="password" minlength="6" required>
+        </div>
+
+        <div class="field">
+          <label>CONFIRM PASSWORD</label>
+          <input name="confirm" type="password" minlength="6" required>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" data-close="signupModal">
+          Cancel
+        </button>
+        <button class="btn btn-primary">Create account</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="studentModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Register a student</h3>
+      <button class="close" data-close="studentModal">×</button>
+    </div>
+
+    <form id="studentForm">
+      <div class="form-grid">
+
+        <div class="field full">
+          <label>FULL NAME</label>
+          <input name="name" required>
+        </div>
+
+        <div class="field">
+          <label>CLASS</label>
+          <select name="className" required>
+            <option value="">Select class</option>
+            <option>Institute 1</option>
+            <option>Institute 2</option>
+            <option>Institute 3</option>
+            <option>Seminary</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>WARD / BRANCH</label>
+          <select name="ward" required></select>
+        </div>
+
+        <div class="field">
+          <label>PHONE</label>
+          <input name="phone">
+        </div>
+
+        <div class="field">
+          <label>AGE GROUP</label>
+          <select name="age">
+            <option>16–18</option>
+            <option>19–22</option>
+            <option>23+</option>
+            <option>Not specified</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" data-close="studentModal">
+          Cancel
+        </button>
+        <button class="btn btn-primary">Save student</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ADMIN = {
+  email: "admin@ohafia-si.org",
+  password: "OhafiaAdmin2026!",
+  name: "Administrator",
+  role: "Admin"
+};
+
+const wards = [
+  "Abiriba Ward",
+  "Asaga 1st Branch",
+  "Asaga 2nd Ward",
+  "Akau Ward",
+  "Arochukwu Branch",
+  "Ebem 1st Ward",
+  "Ebem 2nd Branch",
+  "Edda Branch",
+  "Nkporo Branch",
+  "Amuma Ward",
+  "Isiama Ward"
+];
+
+const todayKey = new Date().toISOString().slice(0,10);
+
+const uid = () =>
+  Math.random().toString(36).slice(2,9);
+
+const esc = value =>
+  String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[character]));
+
+const seed = {
+  students: [
+    {
+      id:"s1",
+      name:"Chidinma Okoro",
+      className:"Institute 1",
+      ward:"Abiriba Ward",
+      phone:"0803 123 4567",
+      age:"19–22",
+      registered:"2026-09-04"
+    },
+    {
+      id:"s2",
+      name:"Emmanuel Nwankwo",
+      className:"Institute 1",
+      ward:"Asaga 1st Branch",
+      phone:"0806 234 6789",
+      age:"19–22",
+      registered:"2026-09-06"
+    },
+    {
+      id:"s3",
+      name:"Blessing Kalu",
+      className:"Institute 2",
+      ward:"Arochukwu Branch",
+      phone:"0814 876 1122",
+      age:"16–18",
+      registered:"2026-09-11"
+    }
+  ],
+  attendance:{
+    [todayKey]:{
+      s1:"present",
+      s2:"present",
+      s3:"late"
+    }
+  },
+  gallery:[]
+};
+
+let state =
+  JSON.parse(localStorage.getItem("ohafiaSITracker") || "null") || seed;
+
+let currentUser = null;
+
+state.gallery = (state.gallery || []).map(image => ({
+  ...image,
+  id:image.id || uid()
+}));
+
+const slides = [
+  {
+    type:"Fun fact",
+    title:"It began with 70 students",
+    text:"The first Seminary sessions opened in the fall of 1912 with a group of 70 students.",
+    author:"S&I History",
+    source:"https://www.churchofjesuschrist.org/study/history/topics/seminaries-and-institutes?lang=eng"
+  },
+  {
+    type:"Fun fact",
+    title:"One in a million",
+    text:"In 2026, Seminary and Institute enrollment surpassed one million students worldwide.",
+    author:"Church Newsroom",
+    source:"https://newsroom.churchofjesuschrist.org/article/seminary-and-institute-enrollment-surpasses-1-million-students-worldwide"
+  },
+  {
+    type:"Fun fact",
+    title:"Different programs, one purpose",
+    text:"Seminary is a four-year program for youth ages 14–18. Institute serves young adults ages 18–30.",
+    author:"Church Newsroom",
+    source:"https://newsroom.churchofjesuschrist.org/article/president-nelson-extends-video-invitations-to-enroll-in-seminary-and-institute"
+  },
+  {
+    type:"Prophetic quote",
+    title:"President Russell M. Nelson",
+    text:"Seminary can change the course of your life.",
+    author:"President Russell M. Nelson",
+    source:"https://www.churchofjesuschrist.org/si/seminary/personal-invitation-to-seminary?lang=eng"
+  },
+  {
+    type:"Prophetic quote",
+    title:"President Thomas S. Monson",
+    text:"Seminary can change lives.",
+    author:"President Thomas S. Monson",
+    source:"https://www.churchofjesuschrist.org/si/seminary/about/seminary-quotes?lang=eng"
+  },
+  {
+    type:"Prophetic quote",
+    title:"President Gordon B. Hinckley",
+    text:"Go there to learn and become acquainted with the gospel.",
+    author:"President Gordon B. Hinckley",
+    source:"https://www.churchofjesuschrist.org/si/seminary/about/seminary-quotes?lang=eng"
+  },
+  {
+    type:"Prophetic quote",
+    title:"President M. Russell Ballard",
+    text:"Friends will be made, the Spirit will be felt, and faith will be strengthened.",
+    author:"President M. Russell Ballard",
+    source:"https://www.churchofjesuschrist.org/si/institute/about/institute-quotes?lang=eng"
+  }
+];
+
+let slideIndex = 0;
+let playing = true;
+
+function save(){
+  localStorage.setItem("ohafiaSITracker", JSON.stringify(state));
+}
+
+function teachers(){
+  return JSON.parse(
+    localStorage.getItem("ohafiaSITeachers") || "[]"
+  );
+}
+
+function session(){
+  const saved =
+    localStorage.getItem("ohafiaSISession") ||
+    sessionStorage.getItem("ohafiaSISession");
+
+  if(!saved) return null;
+
+  try{
+    return JSON.parse(saved);
+  }catch(error){
+    return null;
+  }
+}
+
+function greeting(){
+  const hour = new Date().getHours();
+
+  if(hour < 12) return "Good morning";
+  if(hour < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+function toast(message){
+  const element = document.getElementById("toast");
+  element.textContent = message;
+  element.classList.add("show");
+
+  setTimeout(() => {
+    element.classList.remove("show");
+  }, 2300);
+}
+
+function avatar(name){
+  return `
+    <div class="avatar">
+      ${esc(
+        name
+          .split(" ")
+          .map(word => word[0])
+          .join("")
+          .slice(0,2)
+          .toUpperCase()
+      )}
+    </div>
+  `;
+}
+
+function status(id,date = todayKey){
+  return (state.attendance[date] || {})[id] || "absent";
+}
+
+function setStatus(id,date,value){
+  if(!state.attendance[date]){
+    state.attendance[date] = {};
+  }
+
+  state.attendance[date][id] = value;
+}
+
+function dateText(date){
+  return new Date(date + "T12:00:00")
+    .toLocaleDateString("en-NG",{
+      weekday:"short",
+      month:"short",
+      day:"numeric"
+    });
+}
+
+function fillWards(){
+  const wardOptions =
+    '<option value="">Select ward or branch</option>' +
+    wards.map(ward => `<option>${ward}</option>`).join("");
+
+  document
+    .querySelectorAll('select[name="ward"]')
+    .forEach(select => {
+      select.innerHTML = wardOptions;
+    });
+
+  ["wardFilter","attWard"].forEach(id => {
+    document.getElementById(id).innerHTML =
+      '<option value="">All wards and branches</option>' +
+      wards.map(ward => `<option>${ward}</option>`).join("");
+  });
+}
+
+function openModal(id){
+  document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove("show");
+}
+
+function showApp(){
+  currentUser = session() || ADMIN;
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+  document.getElementById("userName").textContent =
+    currentUser.name;
+
+  document.getElementById("userRole").textContent =
+    currentUser.role === "Admin"
+      ? "Administrator access"
+      : "Teacher access";
+
+  document.getElementById("rolePill").textContent =
+    currentUser.role.toUpperCase();
+
+  document.getElementById("pageTitle").textContent =
+    `${greeting()} ${currentUser.name}`;
+
+  renderAll();
+}
+
+function loginPage(){
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+}
+
+document.getElementById("loginForm").onsubmit = event => {
+  event.preventDefault();
+
+  const email =
+    document.getElementById("loginEmail").value
+      .trim()
+      .toLowerCase();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const user =
+    email === ADMIN.email && password === ADMIN.password
+      ? ADMIN
+      : teachers().find(
+          teacher =>
+            teacher.email === email &&
+            teacher.password === password
+        );
+
+  if(!user){
+    document
+      .getElementById("loginError")
+      .classList.add("show");
+
+    return;
+  }
+
+  document
+    .getElementById("loginError")
+    .classList.remove("show");
+
+  const remember =
+    document.getElementById("remember").checked;
+
+  const storage = remember
+    ? localStorage
+    : sessionStorage;
+
+  storage.setItem(
+    "ohafiaSISession",
+    JSON.stringify(user)
+  );
+
+  showApp();
+};
+
+document.getElementById("showPass").onclick = () => {
+  const passwordInput =
+    document.getElementById("loginPassword");
+
+  passwordInput.type =
+    passwordInput.type === "password"
+      ? "text"
+      : "password";
+
+  document.getElementById("showPass").textContent =
+    passwordInput.type === "password"
+      ? "Show"
+      : "Hide";
+};
+
+document.getElementById("logout").onclick = () => {
+  localStorage.removeItem("ohafiaSISession");
+  sessionStorage.removeItem("ohafiaSISession");
+
+  currentUser = null;
+
+  document
+    .querySelectorAll(".modal")
+    .forEach(modal => modal.classList.remove("show"));
+
+  document.getElementById("loginForm").reset();
+
+  document
+    .getElementById("loginError")
+    .classList.remove("show");
+
+  loginPage();
+};
+
+document.getElementById("openSignup").onclick = () => {
+  fillWards();
+  openModal("signupModal");
+};
+
+document
+  .querySelectorAll("[data-close]")
+  .forEach(button => {
+    button.onclick = () =>
+      closeModal(button.dataset.close);
+  });
+
+document.getElementById("signupForm").onsubmit = event => {
+  event.preventDefault();
+
+  const form = new FormData(event.target);
+
+  const email =
+    form.get("email").toLowerCase();
+
+  const existingTeachers = teachers();
+
+  if(form.get("password") !== form.get("confirm")){
+    toast("Passwords do not match.");
+    return;
+  }
+
+  if(
+    existingTeachers.some(
+      teacher => teacher.email === email
+    ) ||
+    email === ADMIN.email
+  ){
+    toast("This email is already registered.");
+    return;
+  }
+
+  existingTeachers.push({
+    id:uid(),
+    name:form.get("name"),
+    email,
+    password:form.get("password"),
+    ward:form.get("ward"),
+    program:form.get("program"),
+    role:"Teacher"
+  });
+
+  localStorage.setItem(
+    "ohafiaSITeachers",
+    JSON.stringify(existingTeachers)
+  );
+
+  closeModal("signupModal");
+  event.target.reset();
+
+  document.getElementById("loginEmail").value = email;
+
+  toast("Teacher account created.");
+};
+
+document.getElementById("register").onclick =
+  () => openModal("studentModal");
+
+document.getElementById("register2").onclick =
+  () => openModal("studentModal");
+
+document.getElementById("sideRegister").onclick =
+  () => openModal("studentModal");
+
+document.getElementById("studentForm").onsubmit = event => {
+  event.preventDefault();
+
+  const form = new FormData(event.target);
+
+  state.students.unshift({
+    id:uid(),
+    name:form.get("name"),
+    className:form.get("className"),
+    ward:form.get("ward"),
+    phone:form.get("phone"),
+    age:form.get("age"),
+    registered:todayKey
+  });
+
+  save();
+  closeModal("studentModal");
+  event.target.reset();
+  renderAll();
+  toast("Student registered.");
+};
+
+document
+  .querySelectorAll(".nav-btn[data-section]")
+  .forEach(button => {
+    button.onclick = () => {
+      const section = button.dataset.section;
+
+      document
+        .querySelectorAll(".section")
+        .forEach(element => {
+          element.classList.toggle(
+            "active",
+            element.id === section
+          );
+        });
+
+      document
+        .querySelectorAll(".nav-btn[data-section]")
+        .forEach(element => {
+          element.classList.toggle(
+            "active",
+            element.dataset.section === section
+          );
+        });
+
+      const titles = {
+        overview:[
+          `${greeting()} ${currentUser?.name || ""}`.trim(),
+          "Welcome to your student attendance workspace."
+        ],
+        students:[
+          "Students",
+          "Manage student information for Ohafia S&I classes."
+        ],
+        attendance:[
+          "Attendance",
+          "Mark and review class participation."
+        ],
+        gallery:[
+          "Learning moments",
+          "Real classroom photographs and uploaded moments."
+        ],
+        spotlight:[
+          "S&I Trivia & Quotes",
+          "Fun facts and prophetic counsel about Seminary and Institute."
+        ]
+      };
+
+      document.getElementById("pageTitle").textContent =
+        titles[section][0];
+
+      document.getElementById("pageSubtitle").textContent =
+        titles[section][1];
+    };
+  });
+
+function renderStats(){
+  const total = state.students.length;
+
+  const present = state.students.filter(
+    student => status(student.id) === "present"
+  ).length;
+
+  const late = state.students.filter(
+    student => status(student.id) === "late"
+  ).length;
+
+  const rate = total
+    ? Math.round(((present + late * .75) / total) * 100)
+    : 0;
+
+  const classes = new Set(
+    state.students.map(student => student.className)
+  ).size;
+
+  document.getElementById("stats").innerHTML = `
+    <div class="stat">
+      <div class="stat-top">
+        <span class="stat-label">Total students</span>
+        <span class="stat-icon blue">♙</span>
+      </div>
+      <div class="stat-value">${total}</div>
+      <div class="stat-note">Currently registered</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span class="stat-label">Present today</span>
+        <span class="stat-icon green">✓</span>
+      </div>
+      <div class="stat-value">${present}</div>
+      <div class="stat-note">${late} marked late</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span class="stat-label">Attendance rate</span>
+        <span class="stat-icon gold">↗</span>
+      </div>
+      <div class="stat-value">${rate}%</div>
+      <div class="stat-note">Based on today’s records</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span class="stat-label">Active classes</span>
+        <span class="stat-icon red">▦</span>
+      </div>
+      <div class="stat-value">${classes}</div>
+      <div class="stat-note">Across Ohafia Stake</div>
+    </div>
+  `;
+}
+
+function renderRecent(){
+  document.getElementById("recent").innerHTML =
+    state.students.length
+      ? state.students.map(student => `
+          <div class="row">
+            ${avatar(student.name)}
+            <div class="row-info">
+              <strong>${esc(student.name)}</strong>
+              <small>
+                ${esc(student.className)} • ${esc(student.ward)}
+              </small>
+            </div>
+            <span class="status ${status(student.id)}">
+              ${status(student.id)}
+            </span>
+          </div>
+        `).join("")
+      : '<div class="empty">No students registered yet.</div>';
+}
+
+function renderChart(){
+  document.getElementById("chart").innerHTML =
+    ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+      .map((day,index) => `
+        <div class="bar-wrap">
+          <div
+            class="bar"
+            style="height:${[58,72,64,88,76,92,84][index]}%"
+          ></div>
+          <small>${day}</small>
+        </div>
+      `)
+      .join("");
+}
+
+function renderStudents(){
+  const query =
+    document.getElementById("search").value.toLowerCase();
+
+  const selectedClass =
+    document.getElementById("classFilter").value;
+
+  const selectedWard =
+    document.getElementById("wardFilter").value;
+
+  const filtered = state.students.filter(student =>
+    (!selectedClass ||
+      student.className === selectedClass) &&
+    (!selectedWard ||
+      student.ward === selectedWard) &&
+    [
+      student.name,
+      student.ward,
+      student.className
+    ]
+      .join(" ")
+      .toLowerCase()
+      .includes(query)
+  );
+
+  document.getElementById("studentCount").textContent =
+    `${state.students.length} students`;
+
+  document.getElementById("studentsTable").innerHTML =
+    filtered.length
+      ? filtered.map(student => `
+          <tr>
+            <td>
+              <div class="student">
+                ${avatar(student.name)}
+                <div>
+                  <strong>${esc(student.name)}</strong>
+                  <small>${esc(student.age)}</small>
+                </div>
+              </div>
+            </td>
+            <td>${esc(student.className)}</td>
+            <td>${esc(student.ward)}</td>
+            <td>${esc(student.phone || "—")}</td>
+            <td>${dateText(student.registered)}</td>
+            <td>
+              <button
+                class="btn btn-danger delete-student"
+                data-id="${student.id}"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        `).join("")
+      : `
+        <tr>
+          <td colspan="6" class="empty">
+            No matching students found.
+          </td>
+        </tr>
+      `;
+}
+
+function renderAttendance(){
+  const date =
+    document.getElementById("attDate").value || todayKey;
+
+  const selectedClass =
+    document.getElementById("attClass").value;
+
+  const selectedWard =
+    document.getElementById("attWard").value;
+
+  const filtered = state.students.filter(student =>
+    (!selectedClass ||
+      student.className === selectedClass) &&
+    (!selectedWard ||
+      student.ward === selectedWard)
+  );
+
+  document.getElementById("attList").innerHTML =
+    filtered.length
+      ? filtered.map(student => {
+          const currentStatus =
+            status(student.id,date);
+
+          return `
+            <div class="att-item">
+              <div class="att-student">
+                ${avatar(student.name)}
+                <div>
+                  <strong>${esc(student.name)}</strong>
+                  <small>${esc(student.className)}</small>
+                </div>
+              </div>
+
+              <small>${esc(student.ward)}</small>
+
+              <span class="status ${currentStatus}">
+                ${currentStatus}
+              </span>
+
+              <div class="att-options">
+                <button
+                  data-id="${student.id}"
+                  data-status="present"
+                >
+                  Present
+                </button>
+
+                <button
+                  data-id="${student.id}"
+                  data-status="late"
+                >
+                  Late
+                </button>
+
+                <button
+                  data-id="${student.id}"
+                  data-status="absent"
+                >
+                  Absent
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("")
+      : `
+        <div class="empty">
+          Register students before marking attendance.
+        </div>
+      `;
+}
+
+function renderGallery(){
+  const defaultImages = [
+    [
+      "Students learning together",
+      "A collaborative classroom learning session.",
+      "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "Teacher-led discussion",
+      "A teacher guiding students through a lesson.",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "Group project learning",
+      "Students working together on an academic project.",
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85"
+    ]
+  ];
+
+  document.getElementById("galleryGrid").innerHTML =
+    defaultImages.map(image => `
+      <div class="gallery-card">
+        <div class="gallery-img">
+          <img src="${image[2]}" alt="${image[0]}">
+        </div>
+        <div class="gallery-copy">
+          <h4>${image[0]}</h4>
+          <p>${image[1]}</p>
+        </div>
+      </div>
+    `).join("") +
+
+    state.gallery.map(image => `
+      <div class="gallery-card">
+        <div class="gallery-img">
+          <img src="${image.image}" alt="${esc(image.title)}">
+        </div>
+
+        <div class="gallery-copy">
+          <h4>${esc(image.title)}</h4>
+          <p>Uploaded learning image.</p>
+
+          <button
+            class="delete-image"
+            data-id="${image.id}"
+          >
+            Delete image
+          </button>
+        </div>
+      </div>
+    `).join("") +
+
+    `
+      <div class="upload">
+        <div>
+          <div style="font-size:30px">▧</div>
+          <strong>Add a learning moment</strong>
+          <p style="font-size:11px">
+            Upload a class photo from your device.
+          </p>
+          <label class="btn btn-secondary" for="imageUpload">
+            Choose image
+          </label>
+        </div>
+      </div>
+    `;
+}
+
+function renderSlide(){
+  const slide = slides[slideIndex];
+
+  document.getElementById("slideType").textContent =
+    slide.type;
+
+  document.getElementById("slideTitle").textContent =
+    slide.title;
+
+  document.getElementById("slideText").textContent =
+    slide.text;
+
+  document.getElementById("slideAuthor").textContent =
+    slide.author;
+
+  document.getElementById("slideSource").href =
+    slide.source;
+
+  document.getElementById("dots").innerHTML =
+    slides.map((slideItem,index) => `
+      <span class="dot ${index === slideIndex ? "active" : ""}"></span>
+    `).join("");
+}
+
+function moveSlide(amount){
+  slideIndex =
+    (slideIndex + amount + slides.length) %
+    slides.length;
+
+  renderSlide();
+}
+
+document.getElementById("next").onclick =
+  () => moveSlide(1);
+
+document.getElementById("prev").onclick =
+  () => moveSlide(-1);
+
+document.getElementById("play").onclick = () => {
+  playing = !playing;
+
+  document.getElementById("play").textContent =
+    playing
+      ? "Pause slideshow"
+      : "Play slideshow";
+};
+
+setInterval(() => {
+  if(playing) moveSlide(1);
+},8000);
+
+document.getElementById("search").oninput =
+  renderStudents;
+
+document.getElementById("classFilter").onchange =
+  renderStudents;
+
+document.getElementById("wardFilter").onchange =
+  renderStudents;
+
+document.getElementById("attClass").onchange =
+  renderAttendance;
+
+document.getElementById("attWard").onchange =
+  renderAttendance;
+
+document.getElementById("attDate").onchange =
+  renderAttendance;
+
+document.getElementById("attList").onclick = event => {
+  const button =
+    event.target.closest("button[data-status]");
+
+  if(!button) return;
+
+  setStatus(
+    button.dataset.id,
+    document.getElementById("attDate").value || todayKey,
+    button.dataset.status
+  );
+
+  save();
+  renderAttendance();
+  renderStats();
+  renderRecent();
+};
+
+document.getElementById("saveAttendance").onclick = () => {
+  save();
+  toast("Attendance saved.");
+};
+
+document.getElementById("studentsTable").onclick = event => {
+  const button =
+    event.target.closest(".delete-student");
+
+  if(!button) return;
+
+  const student =
+    state.students.find(
+      item => item.id === button.dataset.id
+    );
+
+  if(confirm(`Remove ${student.name}?`)){
+    state.students =
+      state.students.filter(
+        item => item.id !== button.dataset.id
+      );
+
+    save();
+    renderAll();
+    toast("Student removed.");
+  }
+};
+
+document.getElementById("galleryGrid").onclick = event => {
+  const button =
+    event.target.closest(".delete-image");
+
+  if(!button) return;
+
+  if(confirm("Delete this image?")){
+    state.gallery =
+      state.gallery.filter(
+        image => image.id !== button.dataset.id
+      );
+
+    save();
+    renderGallery();
+    toast("Image deleted.");
+  }
+};
+
+document.getElementById("imageUpload").onchange = event => {
+  const file = event.target.files[0];
+
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    state.gallery.push({
+      id:uid(),
+      title:file.name.replace(/\.[^/.]+$/,""),
+      image:reader.result
+    });
+
+    save();
+    renderGallery();
+    toast("Image added.");
+    event.target.value = "";
+  };
+
+  reader.readAsDataURL(file);
+};
+
+document.getElementById("clear").onclick = () => {
+  if(confirm("Clear all students and attendance records?")){
+    state = {
+      students:[],
+      attendance:{},
+      gallery:[]
+    };
+
+    save();
+    renderAll();
+  }
+};
+
+document.getElementById("exportBtn").onclick = () => {
+  const rows = [
+    [
+      "Name",
+      "Class",
+      "Ward/Branch",
+      "Phone",
+      "Age",
+      "Registered"
+    ],
+    ...state.students.map(student => [
+      student.name,
+      student.className,
+      student.ward,
+      student.phone,
+      student.age,
+      student.registered
+    ])
+  ];
+
+  const csv = rows
+    .map(row =>
+      row
+        .map(value =>
+          `"${String(value || "").replace(/"/g,'""')}"`
+        )
+        .join(",")
+    )
+    .join("\n");
+
+  const link = document.createElement("a");
+
+  link.href = URL.createObjectURL(
+    new Blob([csv],{type:"text/csv"})
+  );
+
+  link.download = "ohafia-si-students.csv";
+  link.click();
+};
+
+function renderAll(){
+  document.getElementById("today").textContent =
+    dateText(todayKey);
+
+  document.getElementById("attendanceDateText").textContent =
+    dateText(todayKey);
+
+  document.getElementById("attDate").value =
+    todayKey;
+
+  fillWards();
+
+  const classes = [
+    ...new Set(
+      state.students.map(student => student.className)
+    )
+  ];
+
+  const classOptions =
+    '<option value="">All classes</option>' +
+    classes
+      .map(className => `<option>${esc(className)}</option>`)
+      .join("");
+
+  document.getElementById("classFilter").innerHTML =
+    classOptions;
+
+  document.getElementById("attClass").innerHTML =
+    classOptions;
+
+  renderStats();
+  renderRecent();
+  renderChart();
+  renderStudents();
+  renderAttendance();
+  renderGallery();
+  renderSlide();
+}
+
+fillWards();
+
+if(session()){
+  showApp();
+}else{
+  loginPage();
+}
+</script>
+
+</body>
+</html>
